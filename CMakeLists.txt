@@ -10,20 +10,13 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
-# find dependencies
-find_package(ament_cmake REQUIRED)
-find_package(rclcpp REQUIRED)
-find_package(sensor_msgs REQUIRED)
-find_package(livox_ros_driver2 REQUIRED)
+# find dependencies using ament auto
+find_package(ament_cmake_auto REQUIRED)
+ament_auto_find_build_dependencies()
+# Declare executables
+ament_auto_add_executable(livox_to_pointcloud2_node src/livox_to_pointcloud2_node.cpp src/livox_to_pointcloud2.cpp)
 
-include_directories(include)
-
-add_executable(livox_to_pointcloud2_node src/livox_to_pointcloud2.cpp)
-ament_target_dependencies(livox_to_pointcloud2_node rclcpp sensor_msgs livox_ros_driver2)
-
-install(TARGETS
-  livox_to_pointcloud2_node
-  DESTINATION lib/${PROJECT_NAME})
-
-ament_package()
-
+# Install rules
+ament_auto_package(INSTALL_TO_SHARE
+  launch
+)
