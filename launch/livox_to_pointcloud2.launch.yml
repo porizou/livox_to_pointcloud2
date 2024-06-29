@@ -1,0 +1,12 @@
+launch:
+  - node:
+      pkg: livox_to_pointcloud2
+      exec: livox_to_pointcloud2_node
+      name: livox_to_pointcloud2_node
+      remap:
+      -
+          from: "/livox_pointcloud"
+          to: "/livox/lidar"
+      -
+          from: "/converted_pointcloud2"
+          to: "/livox/lidar/pcd2"
